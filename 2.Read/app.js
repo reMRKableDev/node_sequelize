@@ -10,16 +10,6 @@ const sequelize = new Sequelize('<DATABASE_NAME>', '<DATABASE_OWNER/USER>', '<DA
     operatorsAliases: false
 });
 
-/* Test database connection */
-sequelize
-    .authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully.');
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:', err);
-    });
-
 /* 
 - Define Model for Post.
 - Models are defined with sequelize.define('name', {attributes}, "{options}").

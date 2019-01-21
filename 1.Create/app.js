@@ -24,9 +24,12 @@ sequelize
 - Define Model for Post.
 - Models are defined with sequelize.define('name', {attributes}, "{options}").
 */
-const Post = sequelize.define('post', {
-    title: Sequelize.STRING,
-    body: Sequelize.TEXT
+const People = sequelize.define('people', {
+    name: Sequelize.STRING,
+});
+
+const People = sequelize.define('people', {
+    name: Sequelize.STRING,
 });
 
 

@@ -1,0 +1,95 @@
+<% include ./partials/header%>
+
+<h1>Welcome to the Language Model Application</h1>
+<p>We make sure to match you with the best language teachers out there</p>
+
+<h3>Create Person</h3>
+<form action="/users" method="post">
+    <label>Name: </label> <br>
+    <input type="text" name="name" placeholder="Enter Name">
+    <input type="submit" value="Create Person">
+</form>
+
+<h3>Create Language</h3>
+<form action="/languages" method="post">
+    <label>Language: </label> <br>
+    <input type="text" name="name" placeholder="Enter Language">
+    <input type="submit" value="Create Language">
+</form>
+
+<h3>Assign Fluency</h3>
+<form action="/fluency" method="post">
+    <label>Fluency: </label> <br>
+    <input type="text" name="languageId" placeholder="Enter LanguageId"> <br>
+    <input type="text" name="userId" placeholder="Enter UserId"><br>
+    <input type="text" name="level" placeholder="Enter Level"><br>
+    <input type="submit" value="Create Fluency">
+</form>
+
+<h3>Users</h3>
+<table>
+    <tr>
+        <td>Id</td>
+        <td>Name</td>
+    </tr>
+    <% persons.forEach(person => {%>
+    <tr>
+        <td>
+            <%=person.id%>
+        </td>
+        <td>
+            <%=person.name%>
+        </td>
+    </tr>
+    <% });%>
+</table>
+
+<h3>Languages</h3>
+<table>
+    <tr>
+        <td>Id</td>
+        <td>Name</td>
+    </tr>
+    <% languages.forEach(language => {%>
+    <tr>
+        <td>
+            <%=language.id%>
+        </td>
+        <td>
+            <%=language.name%>
+        </td>
+    </tr>
+    <% });%>
+</table>
+
+<h3>Fluency</h3>
+<table>
+    <tr>
+        <td>Language Id</td>
+        <td>Language Name</td>
+        <td>User Id</td>
+        <td>User Name</td>
+        <td>Fluency Level</td>
+    </tr>
+    <% fluencys.forEach(fluency => {%>
+    <tr>
+        <td>
+            <%=fluency.languageId%>
+        </td>
+        <td>
+            <%=fluency.languageName%>
+        </td>
+        <td>
+            <%=fluency.userId%>
+        </td>
+        <td>
+            <%=fluency.userName%>
+        </td>
+        <td>
+            <%=fluency.level%>
+        </td>
+    </tr>
+    <% });%>
+</table>
+
+<% include ./partials/footer%>
