@@ -1,58 +1,70 @@
-const Sequelize = require('sequelize');
+require("dotenv").config({ path: "../.env" });
+
+const Sequelize = require("sequelize");
 
 /* 
-- Connect to db Alt.1 (alternative-way is in alternatives.txt file) 
+- Connect to db.
 - operatorsAliases: false -> Removes deprecated error which shows up on terminal. 
 */
-const sequelize = new Sequelize('<DATABASE_NAME>', '<DATABASE_OWNER/USER>', '<DATABASE_PASSWORD>', {
-    host: 'localhost',
-    dialect: 'postgres',
+const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    dialect: "postgres",
     operatorsAliases: false
-});
+  }
+);
 
 /* Test database connection */
 sequelize
-    .authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully.');
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:', err);
-    });
+  .authenticate()
+  .then(() => {
+    console.log(
+      `Connection to ${process.env.DB_NAME} has been established successfully.`
+    );
+  })
+  .catch(err => {
+    console.error(
+      `Unable to connect to the ${process.env.DB_NAME} database: ${err.stack}`
+    );
+  });
 
 /* 
 - Define Model for Post.
 - Models are defined with sequelize.define('name', {attributes}, "{options}").
 */
-const People = sequelize.define('people', {
-    name: Sequelize.STRING,
+const Post = sequelize.define("post", {
+  title: Sequelize.STRING,
+  body: Sequelize.STRING
 });
-
-const People = sequelize.define('people', {
-    name: Sequelize.STRING,
-});
-
 
 /* 
 - Create new table from model above & populate with data.
 - {force: true} will drop the table if it already exists.
 */
 
-sequelize.sync({
+sequelize
+  .sync({
     force: true
-}).then(() => {
+  })
+  .then(() => {
     Post.create({
-        title: 'New Artwork',
-        body: 'This is a body text for some artwork'
+      title: "New Artwork",
+      body: "This is a body text for some artwork"
     });
     Post.create({
-        title: 'Some other random post',
-        body: 'More random text for this post'
+      title: "Some other random post",
+      body: "More random text for this post"
     });
     Post.create({
-        title: 'Last one',
-        body: 'You should really be getting some sleep now'
+      title: "Last one",
+      body: "You should really be getting some sleep now"
     });
-}, (error) => {
-    console.log(`Something went wrong when creating data for table: ${error.stack}`);
-});
+  })
+  .catch(error =>
+    console.error(
+      `Something went wrong when trying to create a table: ${error.stack}`
+    )
+  );

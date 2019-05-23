@@ -1,5 +1,0 @@
-Connect to db Alt.2
-
-const sequelize = new Sequelize('postgres://<user>@<host>:<port>/<dbname>');
-
--------------------------------------------------------------------------------------
