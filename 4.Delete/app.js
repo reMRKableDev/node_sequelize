@@ -6,7 +6,7 @@ const Sequelize = require("sequelize");
 - Connect to db
 - operatorsAliases: false -> Removes deprecated error which shows up on terminal. 
 */
-const sequelize = new Sequelize(
+const connector = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
   process.env.DB_PASSWORD,
@@ -21,7 +21,7 @@ const sequelize = new Sequelize(
 - Define Model for Post.
 - Models are defined with sequelize.define('name', {attributes}, "{options}").
 */
-const Post = sequelize.define("post", {
+const Post = connector.define("post", {
   title: Sequelize.STRING,
   body: Sequelize.TEXT
 });
@@ -29,7 +29,7 @@ const Post = sequelize.define("post", {
 /* 
 - Delete data post table in database
 */
-sequelize.sync().then(() => {
+connector.sync().then(() => {
   Post.destroy({
     where: {
       id: 3

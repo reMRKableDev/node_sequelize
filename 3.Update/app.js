@@ -6,7 +6,7 @@ const Sequelize = require("sequelize");
 - Connect to db
 - operatorsAliases: false -> Removes deprecated error which shows up on terminal. 
 */
-const sequelize = new Sequelize(
+const connector = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
   process.env.DB_PASSWORD,
@@ -21,7 +21,7 @@ const sequelize = new Sequelize(
 - Define Model for Post.
 - Models are defined with sequelize.define('name', {attributes}, "{options}").
 */
-const Post = sequelize.define("post", {
+const Post = connector.define("post", {
   title: Sequelize.STRING,
   body: Sequelize.TEXT
 });
@@ -29,28 +29,19 @@ const Post = sequelize.define("post", {
 /* 
 - Update data post table in database
 */
-sequelize.sync().then(() => {
-  /*Post.update({
-        title: 'Really Last One'
-    }, {
-        where: {
-            title: 'Last one'
-        }
-    }).then((retrievedPost) => {
-        console.log(retrievedPost);
-    }, (error) => {
-        console.log(`Something went wrong when updating: ${error.stack}`)
-    });*/
-
-  Post.findOne({
-    where: {
+connector.sync().then(() => {
+  Post.update(
+    {
       title: "Really Last One"
+    },
+    {
+      where: {
+        title: "Last one"
+      }
     }
-  }).then(
+  ).then(
     retrievedPost => {
-      retrievedPost.update({
-        title: "Last LAST one"
-      });
+      console.log(retrievedPost);
     },
     error => {
       console.log(`Something went wrong when updating: ${error.stack}`);
