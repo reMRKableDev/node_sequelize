@@ -30,17 +30,9 @@ const Post = sequelize.define("post", {
 - Delete data post table in database
 */
 sequelize.sync().then(() => {
-  /*Post.destroy({
-        where: {
-            id: 3
-        }
-    }).then(console.log('Successfully deleted row'));*/
-
-  Post.findOne({
+  Post.destroy({
     where: {
-      title: "Extra post"
+      id: 3
     }
-  }).then(retrievedPost => {
-    retrievedPost.destroy();
-  });
+  }).then(console.log("Successfully deleted row"));
 });
