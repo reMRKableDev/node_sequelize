@@ -1,4 +1,4 @@
-# postgres-pgnode_module
+# Sequelize Node.js
 
 A short introduction to using the Sequelize on Node.js.
 
